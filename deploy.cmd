@@ -49,6 +49,17 @@ IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\package.json" (
 )
 echo =======  Installing npm dev packages: Finished at %TIME% =======
 
+:: Building the Angular App
+echo =======  Building Angular App: Starting at %TIME% ======= 
+echo "%DEPLOYMENT_SOURCE%\ClientApp\.angular-cli.json"
+IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\.angular-cli.json" (
+  pushd "%DEPLOYMENT_SOURCE%\ClientApp"
+  call :ExecuteCmd node_modules\.bin\ng build --progress false --prod
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
+echo =======  Building Angular App: Finished at %TIME% =======
+
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
   echo Installing Kudu Sync
