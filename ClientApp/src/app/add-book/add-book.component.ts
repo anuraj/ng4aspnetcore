@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 declare var jquery: any;
 declare var $: any;
 
@@ -11,7 +11,7 @@ declare var $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class AddBookComponent implements OnInit {
-  book : any = {};
+  book: any = {};
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -19,16 +19,9 @@ export class AddBookComponent implements OnInit {
   }
 
   createBook() {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'X-XSRF-Token': $('input[name=__RequestVerificationToken]').val()
-    //   })
-    // };
-
-    //this.http.post('/api/books', this.book, httpOptions)
     this.http.post('/api/books', this.book)
       .subscribe(res => {
-        let id = res['Id'];
+        const id = res['Id'];
         this.router.navigate(['/details', id]);
       }, (err) => {
         console.log(err);

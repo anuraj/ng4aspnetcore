@@ -24,8 +24,8 @@ export class EditBookComponent implements OnInit {
   updateBook(id) {
     this.http.put('/api/books/' + id, this.book)
       .subscribe(res => {
-        let id = res['Id'];
-        this.router.navigate(['/details', id]);
+        const navId: any = res['Id'];
+        this.router.navigate(['/details', navId]);
       }, (err) => {
         console.log(err);
       }
